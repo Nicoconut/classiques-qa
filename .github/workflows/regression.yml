@@ -1,0 +1,53 @@
+name: regression
+
+# Tests de régression de classiques.app (qa.md du dépôt privé, dont ce dépôt public est la copie
+# automatique : ne rien modifier ici). Public pour que GitHub ne compte pas les minutes.
+on:
+  schedule:
+    - cron: "30 12 * * *"     # après la mise en ligne, qui part vers 11 h UTC
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Adresse à tester"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium webkit
+      - name: Parcours des lecteurs
+        env:
+          BASE_URL: ${{ inputs.base_url || 'https://classiques.app' }}
+          QA_LIVRES_PRIVES: ${{ secrets.QA_LIVRES_PRIVES }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: npx playwright test
+      - name: Rotation des pages du site
+        if: always() && !inputs.base_url
+        run: node rotation.mjs
+      - name: Garder les captures des échecs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echecs
+          path: test-results/
+          retention-days: 7
+      - name: Lancer la Garde en cas d'échec
+        if: failure() && github.event_name == 'schedule'
+        env:
+          TOKEN: ${{ secrets.GARDE_FIRE_TOKEN }}
+        run: |
+          [ -n "$TOKEN" ] || exit 0
+          curl -sS -o /dev/null -X POST https://api.anthropic.com/v1/claude_code/routines/trig_01SY5E2oB5rEUvgVKKYgpgBN/fire \
+            -H "Authorization: Bearer $TOKEN" -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
+            -H "anthropic-version: 2023-06-01" -H "Content-Type: application/json" \
+            -d "{\"text\": \"Tests de régression en échec : $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"}"

@@ -1,0 +1,43 @@
+{
+  "accessibilite": {
+    "accueil": [
+      "meta-viewport"
+    ],
+    "bibliographie": [
+      "meta-viewport"
+    ],
+    "livre": [
+      "meta-viewport",
+      "color-contrast",
+      "aria-hidden-focus"
+    ],
+    "section": [
+      "meta-viewport",
+      "color-contrast"
+    ],
+    "resume": [
+      "meta-viewport",
+      "color-contrast"
+    ],
+    "20min": [
+      "meta-viewport",
+      "color-contrast",
+      "aria-hidden-focus"
+    ],
+    "poemes": [
+      "meta-viewport"
+    ],
+    "citation": [
+      "meta-viewport",
+      "color-contrast"
+    ]
+  },
+  "poids_ko": {
+    "accueil": 260,
+    "bibliographie": 270,
+    "livre": 330,
+    "section": 250,
+    "resume": 250,
+    "20min": 310
+  }
+}
