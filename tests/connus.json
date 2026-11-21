@@ -1,0 +1,23 @@
+{
+  "accessibilite": {
+    "accueil": [],
+    "bibliographie": [],
+    "livre": [],
+    "section": [],
+    "resume": [],
+    "20min": [],
+    "poemes": [],
+    "citation": []
+  },
+  "poids_ko": {
+    "accueil": 260,
+    "bibliographie": 280,
+    "livre": 330,
+    "section": 250,
+    "resume": 275,
+    "20min": 310
+  },
+  "iphone_en_panne": [
+    "un lien de citation m'amène au passage"
+  ]
+}
