@@ -1,0 +1,11 @@
+{
+  "name": "classiques-qa",
+  "private": true,
+  "type": "module",
+  "description": "Tests de régression de classiques.app : ce qu'un lecteur doit pouvoir faire.",
+  "scripts": { "test": "playwright test" },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@playwright/test": "1.58.0"
+  }
+}

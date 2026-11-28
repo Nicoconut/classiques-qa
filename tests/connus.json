@@ -1,0 +1,21 @@
+{
+  "accessibilite": {
+    "accueil": [],
+    "bibliographie": [],
+    "livre": [],
+    "section": [],
+    "resume": [],
+    "20min": [],
+    "poemes": [],
+    "citation": []
+  },
+  "poids_ko": {
+    "accueil": 260,
+    "bibliographie": 285,
+    "livre": 330,
+    "section": 250,
+    "resume": 285,
+    "20min": 315
+  },
+  "iphone_en_panne": []
+}
